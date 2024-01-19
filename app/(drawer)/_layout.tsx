@@ -36,7 +36,7 @@ function CustomDrawerContent(props: any) {
   return (
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
-        <View style={{flexDirection: "row", alignSelf:"center", paddingLeft: 50, paddingRight: 50, paddingTop: 20, paddingBottom: 20, borderBottomWidth: 1, borderTopWidth: 1, borderColor: "black"}}>
+        <View style={{flexDirection: "row", alignSelf:"center", marginTop: 20, paddingLeft: 50, paddingRight: 50, paddingTop: 20, paddingBottom: 20, borderBottomWidth: 1, borderTopWidth: 1, borderColor: "black"}}>
           <View style={{marginRight: 10, marginLeft: -10}}>
             <Image 
               source={{uri:'https://upload.wikimedia.org/wikipedia/commons/6/63/Icon_Bird_512x512.png'}} 
