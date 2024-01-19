@@ -1,1 +1,0 @@
-import postureImg from "../images/"
