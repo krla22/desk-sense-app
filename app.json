@@ -19,6 +19,7 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": ["CAMERA_ROLL"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -31,6 +32,12 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
       "expo-router"
     ],
     "experiments": {

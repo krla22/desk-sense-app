@@ -1,18 +1,21 @@
 import 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { View, Text, SafeAreaView, Button, Image } from 'react-native';
+import { View, Text, SafeAreaView, Button, Image, Pressable, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from '@firebase/auth';
-import { FIREBASE_AUTH } from '@/firebaseConfig';
+import { FIREBASE_AUTH, firebase } from '@/firebaseConfig';
 import { router } from 'expo-router';
+import images from '@/images/images';
 
 const auth = FIREBASE_AUTH;
 
 function CustomDrawerContent(props: any) {
   const [user, setUser] = useState(null);
+  const [profileImage, setProfileImage] = useState('');
+  const [updateTrigger, setUpdateTrigger] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -26,22 +29,39 @@ function CustomDrawerContent(props: any) {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+
+      if (user) {
+        const userEmail = user.email;
+        const profileImageRef = firebase.storage().ref().child(`${userEmail}`);
+        
+        try {
+          const downloadURL = await profileImageRef.getDownloadURL();
+          setProfileImage(downloadURL);
+        } catch (error) {
+          console.error('Error fetching profile image:', error.message);
+          const placeholderRef = firebase.storage().ref().child('placeholder.jpg');
+          const placeholderURL = await placeholderRef.getDownloadURL().catch(() => '');
+          setProfileImage(placeholderURL);
+        }
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [updateTrigger]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View style={{flexDirection: "row", alignSelf:"center", marginTop: 20, paddingLeft: 50, paddingRight: 50, paddingTop: 20, paddingBottom: 20, borderBottomWidth: 1, borderTopWidth: 1, borderColor: "black"}}>
           <View style={{marginRight: 10, marginLeft: -10}}>
-            <Image 
-              source={{uri:'https://upload.wikimedia.org/wikipedia/commons/6/63/Icon_Bird_512x512.png'}} 
-              style={{width: 80, height: 80, borderWidth: 1, borderColor: 'black', borderRadius: 50}}
-            />
+            <TouchableOpacity onPress={() => router.push('/profile/profiles')}>
+              <Image 
+                source={profileImage ? { uri: profileImage } : {uri: 'https://example.com/placeholder-image.jpg'}} 
+                style={{width: 80, height: 80, borderWidth: 1, borderColor: 'black', borderRadius: 50}}
+              />
+            </TouchableOpacity>
           </View>
           <View style={{alignSelf: "center"}}>
             <Text style={{fontWeight: "bold", margin: 10}}>
@@ -67,6 +87,7 @@ const DrawerLayout = () => {
           options={{
             drawerLabel: 'Dashboard',
             headerTitle: 'Dashboard',
+            headerRight: () => <TouchableOpacity style={{marginRight: 15, padding: 5, borderWidth: 1, borderColor: "black", backgroundColor: "lightgreen"}} onPress={() => router.push('/simpleview/simpleview')}><Text>To Basic View</Text></TouchableOpacity>,
             drawerIcon: ({ size, color }) => (
               <Ionicons name="home" size={size} color={color} />
             )

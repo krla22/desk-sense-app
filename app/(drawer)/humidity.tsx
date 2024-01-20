@@ -4,7 +4,8 @@ import React from 'react'
 const humidity = () => {
   return (
     <View>
-      <Text>humidity</Text>
+      <Text>Area humidity and its details will be shown here</Text>
+      <Text>Other helpful tips</Text>
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, Image, Pressable } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from '@firebase/auth';
@@ -38,7 +38,7 @@ const AuthenticatedScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{width: width, height: height, alignSelf: "center", justifyContent: 'center', borderWidth: 1, borderColor: "black"}}>
+    <SafeAreaView style={{flex: 1, width: width, height: height, alignSelf: "center", justifyContent: 'center', borderWidth: 1, borderColor: "black"}}>
       <Text style={{alignSelf: "center", fontSize: 20, fontWeight: "bold", paddingBottom: 10}}>Basic View</Text>
 
       <View style={{borderWidth: 1, borderColor: "black", borderRadius: 20, alignSelf: "center", width: 310, padding: 10, backgroundColor: "#91e8fa"}}>
@@ -96,16 +96,16 @@ const AuthenticatedScreen = () => {
         </View>
       </View>
 
-      <Pressable onPress={navigateToDashboard} style={{alignSelf: "center", backgroundColor: "green", width: 130, height: 35, borderTopRightRadius: 10, borderTopLeftRadius: 10}}>
+      <TouchableOpacity onPress={navigateToDashboard} style={{alignSelf: "center", backgroundColor: "green", width: 130, height: 35, borderTopRightRadius: 10, borderTopLeftRadius: 10}}>
           <Text style={{textAlign: "center", paddingTop: 7, color: "white"}}>
             To Dashboard
           </Text>
-        </Pressable>
-        <Pressable onPress={handleLogout} style={{alignSelf: "center", backgroundColor: "red", width: 130, height: 35, borderBottomRightRadius: 10, borderBottomLeftRadius: 10}}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleLogout} style={{alignSelf: "center", backgroundColor: "red", width: 130, height: 35, borderBottomRightRadius: 10, borderBottomLeftRadius: 10}}>
           <Text style={{textAlign: "center", paddingTop: 7, color: "white"}}>
             Logout
           </Text>
-      </Pressable>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

@@ -1,4 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -6,6 +9,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
+      },
+      overallContainer: {
+        backgroundColor: "lightgreen",
+        width: windowWidth,
+        height: windowHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
       },
       authContainer: {
         width: '80%',
@@ -16,8 +27,8 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
       title: {
-        fontSize: 24,
-        marginBottom: 16,
+        fontSize: 18,
+        marginBottom: 12,
         textAlign: 'center',
       },
       input: {
@@ -43,6 +54,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
       },
+      welcome: {
+        fontWeight: "bold",
+        textAlign: "center", 
+        fontSize: 20,
+        marginBottom: 5,
+      }
 })
 
 export default styles

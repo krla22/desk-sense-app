@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { initializeApp } from '@firebase/app';
-import styles from '@/stylesheets/loginstyle';
+import styles from '@/stylesheets/loginstyle'; 
 import AuthenticatedScreen from './simpleview/simpleview';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCE4FOe4MdtybgBFrHOebxvPqiDDuoUAWQ",
@@ -19,31 +21,34 @@ const app = initializeApp(firebaseConfig);
 
 const AuthScreen = ({ email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) => {
   return (
-    <View style={styles.authContainer}>
-       <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
+    <View style={styles.overallContainer}>
+      <View style={styles.authContainer}>
+        <Text style={styles.welcome}>Welcome to Desksense</Text>
+        <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
 
-       <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        secureTextEntry
-      />
-      <View style={styles.buttonContainer}>
-        <Button title={isLogin ? 'Sign In' : 'Sign Up'} onPress={handleAuthentication} color="#3498db" />
-      </View>
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          secureTextEntry
+        />
+        <View style={styles.buttonContainer}>
+          <Button title={isLogin ? 'Sign In' : 'Sign Up'} onPress={handleAuthentication} color="#3498db" />
+        </View>
 
-      <View style={styles.bottomContainer}>
-        <Text style={styles.toggleText} onPress={() => setIsLogin(!isLogin)}>
-          {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Sign In'}
-        </Text>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.toggleText} onPress={() => setIsLogin(!isLogin)}>
+            {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Sign In'}
+          </Text>
+        </View>
       </View>
     </View>
   );

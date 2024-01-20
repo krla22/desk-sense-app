@@ -4,7 +4,8 @@ import React from 'react'
 const posture = () => {
   return (
     <View>
-      <Text>posture</Text>
+      <Text>Your posture rating will be shown here</Text>
+      <Text>Other details about posture</Text>
     </View>
   )
 }

@@ -4,7 +4,8 @@ import React from 'react'
 const temperature = () => {
   return (
     <View>
-      <Text>temperature</Text>
+      <Text>Area temperature will be shown here</Text>
+      <Text>Other details about it</Text>
     </View>
   )
 }
